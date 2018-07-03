@@ -140,7 +140,10 @@ class PyLouvain:
         q = 0
         m2 = self.m * 2
         for i in range(len(partition)):
-            q += self.s_in[i] / m2 - (self.s_tot[i] / m2) ** 2
+            try:
+                q += self.s_in[i] / m2 - (self.s_tot[i] / m2) ** 2
+            except:
+                q += 0
         return q
 
     '''
@@ -150,7 +153,10 @@ class PyLouvain:
         _k_i_in: the sum of the weights of the links from _node to nodes in _c
     '''
     def compute_modularity_gain(self, node, c, k_i_in):
-        return 2 * k_i_in - self.s_tot[c] * self.k_i[node] / self.m
+        try:
+            return 2 * k_i_in - self.s_tot[c] * self.k_i[node] / self.m
+        except:
+            return 0
 
     '''
         Performs the first phase of the method.
